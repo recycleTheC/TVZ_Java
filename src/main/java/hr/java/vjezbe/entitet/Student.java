@@ -1,6 +1,7 @@
 package hr.java.vjezbe.entitet;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * Klasa Student sadrži informacije o osobi koja pohađa studij na obrazovnoj ustanovi
@@ -33,5 +34,18 @@ public class Student extends Osoba{
 
     public Student(String ime, String prezime) {
         super(ime, prezime);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return jmbag.equals(student.jmbag);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(jmbag);
     }
 }

@@ -2,12 +2,14 @@ package hr.java.vjezbe.iznimke;
 
 import hr.java.vjezbe.entitet.Student;
 
+import java.util.List;
+
 /**
  * Iznimka koja se baca kada postoji više studenata s istim datumom rođenja (najvećim)
  */
 public class PostojiViseNajmladihStudenataException extends RuntimeException  {
 
-    public Student[] studenti;
+    public List<Student> studenti;
     public PostojiViseNajmladihStudenataException() {
         super();
     }
@@ -16,7 +18,7 @@ public class PostojiViseNajmladihStudenataException extends RuntimeException  {
         super(message);
     }
 
-    public PostojiViseNajmladihStudenataException(Student[] studenti) {
+    public PostojiViseNajmladihStudenataException(List<Student> studenti) {
         super();
         this.studenti = studenti;
     }

@@ -8,15 +8,23 @@ import java.time.LocalDateTime;
 public final class Ispit implements Online {
     private Predmet predmet;
     private Student student;
-    private Integer ocjena;
+    private Ocjena ocjena;
     private LocalDateTime datumIVrijeme;
     private Dvorana dvorana;
     private String software;
+
     public Ispit(Predmet predmet, Student student, Integer ocjena, LocalDateTime datumIVrijeme) {
         this.predmet = predmet;
         this.student = student;
-        this.ocjena = ocjena;
         this.datumIVrijeme = datumIVrijeme;
+        this.setOcjena(ocjena);
+    }
+
+    public Ispit(Predmet predmet, Student student, Ocjena ocjena, LocalDateTime datumIVrijeme) {
+        this.predmet = predmet;
+        this.student = student;
+        this.datumIVrijeme = datumIVrijeme;
+        this.ocjena = ocjena;
     }
 
     public Predmet getPredmet() {
@@ -35,11 +43,22 @@ public final class Ispit implements Online {
         this.student = student;
     }
 
-    public Integer getOcjena() {
+    public Ocjena getOcjena() {
         return ocjena;
     }
 
     public void setOcjena(Integer ocjena) {
+        this.ocjena = switch(ocjena){
+            case 1: yield Ocjena.NEDOVOLJAN;
+            case 2: yield Ocjena.DOVOLJAN;
+            case 3: yield Ocjena.DOBAR;
+            case 4: yield Ocjena.VRLO_DOBAR;
+            case 5: yield Ocjena.IZVRSTAN;
+            default: yield Ocjena.NIJE_UNESENA;
+        };
+    }
+
+    public void setOcjena(Ocjena ocjena) {
         this.ocjena = ocjena;
     }
 

@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * Klasa Veleučilište Jave nasljeđuje Obrazovnu ustanovu i implementira metode sučelja Visokoškolska
@@ -14,13 +14,13 @@ import java.util.Arrays;
  */
 public class VeleucilisteJave extends ObrazovnaUstanova implements Visokoskolska {
     private static final Logger logger = LoggerFactory.getLogger(Glavna.class);
-    public VeleucilisteJave(String naziv, Predmet[] predmeti, Student[] studenti, Profesor[] profesori, Ispit[] ispiti) {
+
+    public VeleucilisteJave(String naziv, List<Predmet> predmeti, List<Student> studenti, List<Profesor> profesori, List<Ispit> ispiti) {
         super(naziv, predmeti, studenti, profesori, ispiti);
     }
 
-
     @Override
-    public BigDecimal izracunajKonacnuOcjenuStudijaZaStudenta(Ispit[] ispiti, int ocjenaZavrsnogRada, int ocjenaObraneZavrsnogRada) throws NemoguceOdreditiProsjekStudentaException {
+    public BigDecimal izracunajKonacnuOcjenuStudijaZaStudenta(List<Ispit> ispiti, int ocjenaZavrsnogRada, int ocjenaObraneZavrsnogRada) throws NemoguceOdreditiProsjekStudentaException {
         BigDecimal prosjek = new BigDecimal(0);
 
         try{
@@ -34,33 +34,33 @@ public class VeleucilisteJave extends ObrazovnaUstanova implements Visokoskolska
 
     @Override
     public Student odrediNajuspjesnijegStudentaNaGodini(int godina) {
-        Student[] studenti = this.getStudenti();
+        List<Student> studenti = this.getStudenti();
 
         boolean postavljenNajuspjesniji = false;
 
         Student najuspjesniji = null;
         BigDecimal prosjekNajuspjesnijeg = BigDecimal.ZERO;
 
-        for(int i = 0; i < studenti.length; i++){
-            Ispit[] ispiti = this.ispitiIzGodine(this.filtrirajIspitePoStudentu(this.getIspiti(), studenti[i]), godina);
+        for(int i = 0; i < studenti.size(); i++){
+            List<Ispit> ispiti = this.ispitiIzGodine(this.filtrirajIspitePoStudentu(this.getIspiti(), studenti.get(i)), godina);
             BigDecimal prosjek = BigDecimal.ZERO;
 
             try{
                 prosjek = this.odrediProsjekOcjenaNaIspitima(ispiti);
             }
             catch (NemoguceOdreditiProsjekStudentaException ex){
-                System.out.println("Student " + studenti[i].getImeIPrezime() + " zbog negativne ocjene na jednom od ispita ima prosjek „nedovoljan (1)“!" );
+                System.out.println("Student " + studenti.get(i).getImeIPrezime() + " zbog negativne ocjene na jednom od ispita ima prosjek „nedovoljan (1)“!" );
                 logger.error("Nije moguce odrediti prosjek studenta", ex);
                 continue;
             }
 
             if(!postavljenNajuspjesniji){
-                najuspjesniji = studenti[i];
+                najuspjesniji = studenti.get(i);
                 prosjekNajuspjesnijeg = prosjek;
                 postavljenNajuspjesniji = true;
             }
             else if(prosjek.compareTo(prosjekNajuspjesnijeg) >= 0){
-                najuspjesniji = studenti[i];
+                najuspjesniji = studenti.get(i);
                 prosjekNajuspjesnijeg = prosjek;
             }
         }

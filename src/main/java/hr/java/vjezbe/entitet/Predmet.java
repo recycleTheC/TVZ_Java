@@ -1,5 +1,10 @@
 package hr.java.vjezbe.entitet;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * Klasa Predmet sadrži osnovne informacije o predmetu u obrazovnim ustanovama
  */
@@ -8,21 +13,14 @@ public class Predmet {
     private String naziv;
     private Integer brojEctsBodova;
     private Profesor nositelj;
-    private Student[] studenti;
+    private Set<Student> studenti;
 
     public Predmet(String sifra, String naziv, Integer brojEctsBodova, Profesor nositelj) {
         this.sifra = sifra;
         this.naziv = naziv;
         this.brojEctsBodova = brojEctsBodova;
         this.nositelj = nositelj;
-    }
-
-    public Predmet(String sifra, String naziv, Integer brojEctsBodova, Profesor nositelj, int brojStudenata){
-        this.sifra = sifra;
-        this.naziv = naziv;
-        this.brojEctsBodova = brojEctsBodova;
-        this.nositelj = nositelj;
-        this.studenti = new Student[brojStudenata];
+        this.studenti = new HashSet<>();
     }
 
     public String getSifra() {
@@ -57,11 +55,11 @@ public class Predmet {
         this.nositelj = nositelj;
     }
 
-    public Student[] getStudenti() {
+    public Set<Student> getStudenti() {
         return studenti;
     }
 
-    public void setStudenti(Student[] studenti) {
-        this.studenti = studenti;
+    public void setStudent(Student student) {
+        this.studenti.add(student);
     }
 }

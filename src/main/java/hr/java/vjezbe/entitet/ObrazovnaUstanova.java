@@ -1,18 +1,20 @@
 package hr.java.vjezbe.entitet;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Apstraktna klasa Obrazovna ustanova koja sadrži osnovne informacije zajedničke svim ustanovama
  */
 public abstract class ObrazovnaUstanova {
     private String naziv;
-    private Predmet[] predmeti;
-    private Student[] studenti;
-    private Profesor[] profesori;
-    private Ispit[] ispiti;
+    private List<Predmet> predmeti;
+    private List<Student> studenti;
+    private List<Profesor> profesori;
+    private List<Ispit> ispiti;
 
-    public ObrazovnaUstanova(String naziv, Predmet[] predmeti, Student[] studenti, Profesor[] profesori, Ispit[] ispiti) {
+    public ObrazovnaUstanova(String naziv, List<Predmet> predmeti, List<Student> studenti, List<Profesor> profesori, List<Ispit> ispiti) {
         this.naziv = naziv;
         this.predmeti = predmeti;
         this.studenti = studenti;
@@ -28,35 +30,35 @@ public abstract class ObrazovnaUstanova {
         this.naziv = naziv;
     }
 
-    public Predmet[] getPredmeti() {
+    public List<Predmet> getPredmeti() {
         return predmeti;
     }
 
-    public void setPredmeti(Predmet[] predmeti) {
+    public void setPredmeti(List<Predmet> predmeti) {
         this.predmeti = predmeti;
     }
 
-    public Student[] getStudenti() {
+    public List<Student> getStudenti() {
         return studenti;
     }
 
-    public void setStudenti(Student[] studenti) {
+    public void setStudenti(List<Student> studenti) {
         this.studenti = studenti;
     }
 
-    public Profesor[] getProfesori() {
+    public List<Profesor> getProfesori() {
         return profesori;
     }
 
-    public void setProfesori(Profesor[] profesori) {
+    public void setProfesori(List<Profesor> profesori) {
         this.profesori = profesori;
     }
 
-    public Ispit[] getIspiti() {
+    public List<Ispit> getIspiti() {
         return ispiti;
     }
 
-    public void setIspiti(Ispit[] ispiti) {
+    public void setIspiti(List<Ispit> ispiti) {
         this.ispiti = ispiti;
     }
 
@@ -73,13 +75,12 @@ public abstract class ObrazovnaUstanova {
      * @param godina broj godine u kojoj je polagan ispit
      * @return polje ispita
      */
-    public Ispit[] ispitiIzGodine(Ispit[] ispiti, int godina){
-        Ispit[] izvuceni = new Ispit[0];
+    public List<Ispit> ispitiIzGodine(List<Ispit> ispiti, int godina){
+        List<Ispit> izvuceni = new ArrayList<>();
 
         for(Ispit ispit : ispiti){
             if(ispit.getDatumIVrijeme().getYear() == godina){
-                izvuceni = Arrays.copyOf(izvuceni, izvuceni.length+1);
-                izvuceni[izvuceni.length-1] = ispit;
+                izvuceni.add(ispit);
             }
         }
 

@@ -3,7 +3,9 @@ package hr.java.vjezbe.entitet;
 import hr.java.vjezbe.iznimke.NemoguceOdreditiProsjekStudentaException;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Sučelje Visokoškolska zahtjeva da klase implementiraju metode specifične za Visokoškolske ustavnove
@@ -17,7 +19,7 @@ public interface Visokoskolska {
      * @return konačna ocjenu studija prema uvjetima
      * @throws NemoguceOdreditiProsjekStudentaException student ima jedan ili više nepoložen predmet (ispit s ocjenom nedovoljan)
      */
-    BigDecimal izracunajKonacnuOcjenuStudijaZaStudenta(Ispit[] ispiti, int ocjenaZavrsnogRada, int ocjenaObraneZavrsnogRada) throws NemoguceOdreditiProsjekStudentaException;
+    BigDecimal izracunajKonacnuOcjenuStudijaZaStudenta(List<Ispit> ispiti, int ocjenaZavrsnogRada, int ocjenaObraneZavrsnogRada) throws NemoguceOdreditiProsjekStudentaException;
 
     /**
      * Vraća prosjek ocjena za sve unesene ispite
@@ -25,13 +27,13 @@ public interface Visokoskolska {
      * @return prosjek ocjena za unesene ispite
      * @throws NemoguceOdreditiProsjekStudentaException iznimka postojanja ispita s ocjenom 1 (nedovoljan)
      */
-    default BigDecimal odrediProsjekOcjenaNaIspitima(Ispit[] ispiti) throws NemoguceOdreditiProsjekStudentaException {
+    default BigDecimal odrediProsjekOcjenaNaIspitima(List<Ispit> ispiti) throws NemoguceOdreditiProsjekStudentaException {
         BigDecimal zbroj = new BigDecimal(0);
         int n = 0;
 
         for(Ispit ispit : ispiti){
-            if(ispit.getOcjena() > 1) {
-                zbroj = zbroj.add(BigDecimal.valueOf(ispit.getOcjena()));
+            if(ispit.getOcjena().getBrojcanaOznaka() > 1) {
+                zbroj = zbroj.add(BigDecimal.valueOf(ispit.getOcjena().getBrojcanaOznaka()));
                 n++;
             }
             else {
@@ -39,15 +41,17 @@ public interface Visokoskolska {
             }
         }
 
+        if(n == 0) throw new NemoguceOdreditiProsjekStudentaException("Greska");
+
         return zbroj.divide(BigDecimal.valueOf(n));
     }
 
-    private Ispit[] filtrirajPolozeneIspite(Ispit[] ispiti) {
-        Ispit[] polozeni = new Ispit[0];
+    private List<Ispit> filtrirajPolozeneIspite(List<Ispit> ispiti) {
+        List<Ispit> polozeni = new ArrayList<>();
+
         for(Ispit ispit : ispiti){
-            if(ispit.getOcjena() > 1) {
-                polozeni = Arrays.copyOf(polozeni, polozeni.length + 1);
-                polozeni[polozeni.length - 1] = ispit;
+            if(ispit.getOcjena().getBrojcanaOznaka() > 1) {
+                polozeni.add(ispit);
             }
         }
 
@@ -60,12 +64,12 @@ public interface Visokoskolska {
      * @param student odabrani student
      * @return ispiti odabranog studenta
      */
-    default Ispit[] filtrirajIspitePoStudentu(Ispit[] ispiti, Student student){
-        Ispit[] ispitiStudenta = new Ispit[0];
+    default List<Ispit> filtrirajIspitePoStudentu(List<Ispit> ispiti, Student student){
+        List<Ispit> ispitiStudenta = new ArrayList<>();
+
         for(Ispit ispit : ispiti){
             if(ispit.getStudent().getJmbag().equals(student.getJmbag())) {
-                ispitiStudenta = Arrays.copyOf(ispitiStudenta, ispitiStudenta.length + 1);
-                ispitiStudenta[ispitiStudenta.length - 1] = ispit;
+                ispitiStudenta.add(ispit);
             }
         }
 
