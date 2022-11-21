@@ -1,39 +1,89 @@
-1
-Darko
-Markota
-viši predavač
 2
-Ivica
-Krešić
+P1234
+Petar
+Kovačević
+viši predavač
+P4454
+Ivan
+Babić
 profesor visoke škole
-1
+PR443
 Programiranje u jeziku Java
 6
 1
-1
 2
+PR667
 Web aplikacije u Javi
 7
 2
-1
-3
-Napredna interoperabilnost i Javi
-8
 2
+Marko
+Curić
+12.12.1999.
+024680654
+Ivana
+Belić
+11.11.1998.
+0036389977
 1
-Pero
-Perić
-03.06.1998.
-38475930459
-Ivo
-Ivić
-17.11.1999.
-85439458943
-Jadranko
-Marić
-18.10.1997.
-94304543803
+Velika dvorana
+Velika zgrada
 1
-3
+4
+11.10.2022.T18:00
+2
+Velika dvorana
+Velika zgrada
+2
 5
-12.10.2022.T17:00
+12.10.2022.T17:30
+2
+Fakultet elektrotehnike i računarstva
+4
+4
+5
+5
+P987
+Darko
+Milić
+predavač
+P661
+Danica
+Despot
+predavač
+SP710
+Programiranje
+5
+1
+2
+SP9000
+Objektno orijentirano programiranje
+5
+2
+2
+Emil
+Franković
+12.01.1998.
+9876374891
+Danka
+Županović
+14.02.1999.
+8367819234135
+1
+Velika dvorana
+Velika zgrada
+1
+5
+12.10.2022.T19:00
+2
+Velika dvorana
+Velika zgrada
+2
+4
+13.10.2022.T19:30
+1
+Tehničko veleučilište
+5
+5
+4
+4

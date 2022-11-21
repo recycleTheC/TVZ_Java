@@ -2,33 +2,14 @@ package hr.java.vjezbe.entitet;
 
 import java.time.LocalDate;
 
-public class Student {
-    private String ime;
-    private String prezime;
+public class Student extends Osoba{
     private String jmbag;
     private LocalDate datumRodjenja;
 
     public Student(String ime, String prezime, String jmbag, LocalDate datumRodjenja) {
-        this.ime = ime;
-        this.prezime = prezime;
+        super(ime, prezime);
         this.jmbag = jmbag;
         this.datumRodjenja = datumRodjenja;
-    }
-
-    public String getIme() {
-        return ime;
-    }
-
-    public void setIme(String ime) {
-        this.ime = ime;
-    }
-
-    public String getPrezime() {
-        return prezime;
-    }
-
-    public void setPrezime(String prezime) {
-        this.prezime = prezime;
     }
 
     public String getJmbag() {
@@ -48,7 +29,6 @@ public class Student {
     }
 
     public Student(String ime, String prezime) {
-        this.ime = ime;
-        this.prezime = prezime;
+        super(ime, prezime);
     }
 }

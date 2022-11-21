@@ -2,12 +2,12 @@ package hr.java.vjezbe.entitet;
 
 import java.time.LocalDateTime;
 
-public class Ispit {
+public final class Ispit implements Online {
     private Predmet predmet;
     private Student student;
     private Integer ocjena;
     private LocalDateTime datumIVrijeme;
-
+    private Dvorana dvorana;
     public Ispit(Predmet predmet, Student student, Integer ocjena, LocalDateTime datumIVrijeme) {
         this.predmet = predmet;
         this.student = student;
@@ -46,4 +46,13 @@ public class Ispit {
     public void setDatumIVrijeme(LocalDateTime datumIVrijeme) {
         this.datumIVrijeme = datumIVrijeme;
     }
+
+    public Dvorana getDvorana() {
+        return dvorana;
+    }
+
+    public void setDvorana(Dvorana dvorana) {
+        this.dvorana = dvorana;
+    }
+
 }
