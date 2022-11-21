@@ -1,10 +1,11 @@
+asd
 2
 P1234
 Petar
 Kovačević
 viši predavač
 P4454
-Ivan
+Ivana
 Babić
 profesor visoke škole
 PR443
@@ -19,28 +20,22 @@ Web aplikacije u Javi
 2
 Marko
 Curić
-12.12.1999.
+12.11.1999.
 024680654
 Ivana
 Belić
-11.11.1998.
+12.12.1999.
 0036389977
 1
-Velika dvorana
-Velika zgrada
 1
-4
+1
 11.10.2022.T18:00
 2
-Velika dvorana
-Velika zgrada
 2
 5
-12.10.2022.T17:30
-2
-Fakultet elektrotehnike i računarstva
-4
-4
+12.10.2022.T18:00
+1
+Tehničko veleučilište
 5
 5
 P987
@@ -67,23 +62,19 @@ Franković
 9876374891
 Danka
 Županović
-14.02.1999.
+12.01.1998.
 8367819234135
 1
-Velika dvorana
-Velika zgrada
 1
 5
 12.10.2022.T19:00
 2
-Velika dvorana
-Velika zgrada
 2
-4
-13.10.2022.T19:30
-1
-Tehničko veleučilište
+5
+13.10.2022.T19:00
+2
+Fakultet elektrotehnike i računarstva
 5
 5
-4
-4
+5
+5

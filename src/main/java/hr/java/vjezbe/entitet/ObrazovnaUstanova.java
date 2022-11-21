@@ -2,6 +2,9 @@ package hr.java.vjezbe.entitet;
 
 import java.util.Arrays;
 
+/**
+ * Apstraktna klasa Obrazovna ustanova koja sadrži osnovne informacije zajedničke svim ustanovama
+ */
 public abstract class ObrazovnaUstanova {
     private String naziv;
     private Predmet[] predmeti;
@@ -57,8 +60,19 @@ public abstract class ObrazovnaUstanova {
         this.ispiti = ispiti;
     }
 
+    /**
+     * Vraća najuspješnijeg studenta na zadanoj godini studija
+     * @param godina kalendarska godina
+     * @return student koji zadovoljava postavljene uvjete
+     */
     public abstract Student odrediNajuspjesnijegStudentaNaGodini(int godina);
 
+    /**
+     * Vraća polje ispita koji su polagani u zadanog godini
+     * @param ispiti polje ispita
+     * @param godina broj godine u kojoj je polagan ispit
+     * @return polje ispita
+     */
     public Ispit[] ispitiIzGodine(Ispit[] ispiti, int godina){
         Ispit[] izvuceni = new Ispit[0];
 

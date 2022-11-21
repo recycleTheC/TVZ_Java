@@ -2,6 +2,9 @@ package hr.java.vjezbe.entitet;
 
 import java.time.LocalDate;
 
+/**
+ * Klasa Student sadrži informacije o osobi koja pohađa studij na obrazovnoj ustanovi
+ */
 public class Student extends Osoba{
     private String jmbag;
     private LocalDate datumRodjenja;

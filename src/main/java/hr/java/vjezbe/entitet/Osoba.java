@@ -1,5 +1,8 @@
 package hr.java.vjezbe.entitet;
 
+/**
+ * Klasa Osoba sadrži osnovne informacije zajedničke svim osobama
+ */
 public abstract class Osoba {
     private String ime, prezime;
 

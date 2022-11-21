@@ -2,6 +2,9 @@ package hr.java.vjezbe.entitet;
 
 import java.time.LocalDate;
 
+/**
+ * Graditelj klase Student
+ */
 public class StudentBuilder {
     private String ime;
     private String prezime;
@@ -28,6 +31,10 @@ public class StudentBuilder {
         return this;
     }
 
+    /**
+     * Vraća konstruirani objekt Student
+     * @return student
+     */
     public Student createStudent() {
         return new Student(ime, prezime, jmbag, datumRodjenja);
     }
