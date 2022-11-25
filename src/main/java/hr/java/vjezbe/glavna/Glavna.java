@@ -63,6 +63,8 @@ public class Glavna {
             System.out.print("Unesite naziv predmeta: ");
             String naziv = ulaz.nextLine();
 
+            naziv = okreniString(naziv);
+
             int ectsBodovi = ucitajBroj(ulaz, "Unesite broj ECTS bodova za predmet '" + naziv + "': ");
 
             System.out.println("Odaberite profesora: ");
@@ -71,8 +73,17 @@ public class Glavna {
             }
             int brojNositelja = ucitajBroj(ulaz, "Odabir >> ");
 
+            // 3. zadatak
+            System.out.println("Unesite broj semestra: ");
+            System.out.println("1: ljetni");
+            System.out.println("2: zimski");
+            Integer redniBrojSemestra = ulaz.nextInt();
+            ulaz.nextLine();
+
+            Semestar semestar = Semestar.values()[redniBrojSemestra];
+
             Profesor profesor = profesori.get(brojNositelja - 1);
-            Predmet predmet = new Predmet(sifra, naziv, ectsBodovi, profesor);
+            Predmet predmet = new Predmet(sifra, naziv, ectsBodovi, profesor, semestar);
 
             List<Predmet> postojeciPredmeti = mapa.get(profesor);
 
@@ -251,6 +262,23 @@ public class Glavna {
         }
     }
 
+    // 1. zadatak
+    private static void ispisiPoECTSu(List<Predmet> predmeti){
+        List<Predmet> predmetiSa2ECTS = predmeti.stream().filter(p -> p.getBrojEctsBodova().equals(2)).toList();
+        List<Predmet> predmetiSa4ECTS = predmeti.stream().filter(p -> p.getBrojEctsBodova().equals(4)).toList();
+
+        System.out.println("Predmeti sa 2 ECTS boda:");
+        predmetiSa2ECTS.forEach(System.out::println);
+
+        System.out.println("Predmeti sa 4 ECTS boda: ");
+        predmetiSa4ECTS.forEach(System.out::println);
+    }
+
+    // 2. zadatak
+    private static String okreniString(String input){
+        return new StringBuilder(input).reverse().toString();
+    }
+
     public static void main(String[] args) {
         Scanner ulaz = new Scanner(System.in);
 
@@ -269,6 +297,7 @@ public class Glavna {
 
             ucitajProfesore(ulaz,profesori);
             ucitajPredmete(ulaz, predmeti, profesori, profesoriSPredmetima);
+            ispisiPoECTSu(predmeti);
             profesoriNaPredmetima(profesoriSPredmetima);
             ucitajStudente(ulaz, studenti);
             ucitajIspitneRokove(ulaz, ispiti, predmeti, studenti);

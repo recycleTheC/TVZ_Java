@@ -15,12 +15,24 @@ public class Predmet {
     private Profesor nositelj;
     private Set<Student> studenti;
 
+    private Semestar semestar;
+
     public Predmet(String sifra, String naziv, Integer brojEctsBodova, Profesor nositelj) {
         this.sifra = sifra;
         this.naziv = naziv;
         this.brojEctsBodova = brojEctsBodova;
         this.nositelj = nositelj;
         this.studenti = new HashSet<>();
+        this.semestar = Semestar.NIJE_UNESENO;
+    }
+
+    public Predmet(String sifra, String naziv, Integer brojEctsBodova, Profesor nositelj, Semestar semestar) {
+        this.sifra = sifra;
+        this.naziv = naziv;
+        this.brojEctsBodova = brojEctsBodova;
+        this.nositelj = nositelj;
+        this.studenti = new HashSet<>();
+        this.semestar = semestar;
     }
 
     public String getSifra() {
@@ -61,5 +73,18 @@ public class Predmet {
 
     public void setStudent(Student student) {
         this.studenti.add(student);
+    }
+
+    @Override
+    public String toString() {
+        return "Predmet " + sifra + ": " + naziv;
+    }
+
+    public Semestar getSemestar() {
+        return semestar;
+    }
+
+    public void setSemestar(Semestar semestar) {
+        this.semestar = semestar;
     }
 }
