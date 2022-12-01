@@ -65,14 +65,6 @@ public interface Visokoskolska {
      * @return ispiti odabranog studenta
      */
     default List<Ispit> filtrirajIspitePoStudentu(List<Ispit> ispiti, Student student){
-        List<Ispit> ispitiStudenta = new ArrayList<>();
-
-        for(Ispit ispit : ispiti){
-            if(ispit.getStudent().getJmbag().equals(student.getJmbag())) {
-                ispitiStudenta.add(ispit);
-            }
-        }
-
-        return ispitiStudenta;
+        return ispiti.stream().filter(ispit -> ispit.getStudent().equals(student)).toList();
     }
 }

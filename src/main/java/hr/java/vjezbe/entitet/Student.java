@@ -48,4 +48,9 @@ public class Student extends Osoba{
     public int hashCode() {
         return Objects.hash(jmbag);
     }
+
+    @Override
+    public String toString() {
+        return this.getImeIPrezime();
+    }
 }

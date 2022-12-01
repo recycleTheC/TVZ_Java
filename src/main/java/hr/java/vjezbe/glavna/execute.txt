@@ -1,4 +1,4 @@
-1
+2
 P5567
 Janko
 Petrović
@@ -30,13 +30,55 @@ Horvat
 1
 1
 4
-05.11.2018.T18:00
+05.11.2022.T18:00
 1
 2
 5
-06.11.2018.T18:30
+06.11.2022.T18:30
 1
 Tehničko veleučilište
+5
+5
+5
+5
+P987
+Darko
+Milić
+predavač
+P661
+Danica
+Despot
+predavač
+SP710
+Programiranje
+5
+1
+SP9000
+Objektno orijentirano programiranje
+5
+2
+SP9876
+Mobilne aplikacije
+5
+2
+Emil
+Franković
+12.01.1999.
+9876374891
+Danka
+Županović
+12.01.1998.
+8367819234135
+1
+1
+4
+12.10.2022.T19:00
+1
+2
+5
+13.10.2022.T19:00
+2
+Fakultet elektrotehnike i računarstva
 5
 5
 5
