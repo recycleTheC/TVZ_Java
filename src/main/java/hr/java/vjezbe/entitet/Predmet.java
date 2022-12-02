@@ -15,6 +15,8 @@ public class Predmet {
     private Profesor nositelj;
     private Set<Student> studenti;
 
+    private Semestar semestar;
+
     public Predmet(String sifra, String naziv, Integer brojEctsBodova, Profesor nositelj) {
         this.sifra = sifra;
         this.naziv = naziv;
@@ -61,5 +63,18 @@ public class Predmet {
 
     public void setStudent(Student student) {
         this.studenti.add(student);
+    }
+
+    public Semestar getSemestar() {
+        return semestar;
+    }
+
+    public void setSemestar(Semestar semestar) {
+        this.semestar = semestar;
+    }
+
+    @Override
+    public String toString() {
+        return "Predmet: " + naziv;
     }
 }

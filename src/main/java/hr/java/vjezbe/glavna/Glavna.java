@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Glavna {
 
@@ -79,6 +81,14 @@ public class Glavna {
             postojeciPredmeti.add(predmet);
             mapa.put(profesor, postojeciPredmeti);
 
+            // 1. zadatak
+
+            System.out.print("Upisite 1 za zimski ili 2 za ljetni semestar: ");
+            int semestar = ulaz.nextInt();
+            predmet.setSemestar(Semestar.values()[semestar-1]);
+
+            ulaz.nextLine();
+
             predmeti.add(predmet);
         }
     }
@@ -119,19 +129,28 @@ public class Glavna {
         for (int i = 0; i < BROJ_ISPITNIH_ROKOVA; i++){
             System.out.printf("Unesite %d. ispitni rok:\n", i+1);
 
-            System.out.println("Odaberite predmet: ");
-            for(int j = 0; j < BROJ_PREDMETA; j++){
-                System.out.printf("%d. %s\n", j+1, predmeti.get(j).getNaziv());
-            }
+            // 2. zadatak
+
+            System.out.println("Odaberite semestar pa zatim predmet: ");
+
+            IntStream.range(0, Semestar.values().length)
+                    .mapToObj(index -> (index + 1) + ": " + Semestar.values()[index].getTip())
+                    .toList().forEach(System.out::println);
+
+            int semestar = ulaz.nextInt();
+            ulaz.nextLine();
+
+            Semestar odabraniSemestar = Semestar.values()[semestar-1];
+
+            List<Predmet> predmetiSemestra = predmeti.stream().filter(predmet -> predmet.getSemestar().equals(odabraniSemestar)).toList();
+
+            IntStream.range(0, predmetiSemestra.size())
+                    .mapToObj(index -> (index + 1) + ": " + predmetiSemestra.get(index).toString())
+                    .toList().forEach(System.out::println);
 
             int brojPredmeta = ucitajBroj(ulaz, "Odabir >> ");
 
-            Predmet odabraniPredmet = predmeti.get(brojPredmeta - 1);
-
-            /*System.out.print("Unesite naziv dvorane: ");
-            String nazivDvorane = ulaz.nextLine();
-            System.out.print("Unesite zgradu dvorane: ");
-            String zgradaDvorane = ulaz.nextLine();*/
+            Predmet odabraniPredmet = predmetiSemestra.get(brojPredmeta - 1);
 
             Dvorana dvorana = new Dvorana("dvorana", "zgrada"); // hardkodirano jer je izbaceno iz teksta zadatka
 
@@ -232,12 +251,21 @@ public class Glavna {
         }
     }
 
+    // 3. zadatak
+
+    private static <T extends Predmet> void ispisBrojaPredmetaPoSemestru(List<T> predmeti){
+        Arrays.stream(Semestar.values()).forEach(tip -> {
+            long n = predmeti.stream().filter(predmet -> predmet.getSemestar().equals(tip)).count();
+            System.out.println(tip.getTip() + " ima " + n + " predmeta.");
+        });
+    }
+
     public static void main(String[] args) {
         Scanner ulaz = new Scanner(System.in);
 
         Integer brojUstanova = ucitajBroj(ulaz, "Unesite broj obrazovnih ustanova: ");
 
-        Sveuciliste<ObrazovnaUstanova> ustanove = new Sveuciliste<ObrazovnaUstanova>();
+        Sveuciliste<ObrazovnaUstanova> ustanove = new Sveuciliste<>();
 
         for(int i = 0; i < brojUstanova; i++){
             System.out.println("Unesite podatke za " + (i+1) + ". obrazovnu ustanovu:");
@@ -250,6 +278,10 @@ public class Glavna {
 
             ucitajProfesore(ulaz,profesori);
             ucitajPredmete(ulaz, predmeti, profesori, profesoriSPredmetima);
+
+            // 3. zadatak (2)
+            ispisBrojaPredmetaPoSemestru(predmeti);
+
             profesoriNaPredmetima(profesoriSPredmetima);
             ucitajStudente(ulaz, studenti);
             ucitajIspitneRokove(ulaz, ispiti, predmeti, studenti);
