@@ -6,11 +6,14 @@ import java.time.LocalDate;
  * Graditelj klase Student
  */
 public class StudentBuilder {
-    private String ime;
-    private String prezime;
-    private String jmbag;
+    private Long id;
+    private String ime, prezime, jmbag;
     private LocalDate datumRodjenja;
+    private int ocjenaZavrsni, ocjenaObrana;
 
+    public StudentBuilder(Long id) {
+        this.id = id;
+    }
     public StudentBuilder setIme(String ime) {
         this.ime = ime;
         return this;
@@ -31,11 +34,17 @@ public class StudentBuilder {
         return this;
     }
 
+    public StudentBuilder setOcjenaZavrsni(int zavrsni, int obrana) {
+        this.ocjenaZavrsni = zavrsni;
+        this.ocjenaObrana = obrana;
+        return this;
+    }
+
     /**
      * Vraća konstruirani objekt Student
      * @return student
      */
     public Student createStudent() {
-        return new Student(ime, prezime, jmbag, datumRodjenja);
+        return new Student(id, ime, prezime, jmbag, datumRodjenja, ocjenaZavrsni, ocjenaObrana);
     }
 }

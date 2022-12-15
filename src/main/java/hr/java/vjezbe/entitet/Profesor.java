@@ -1,23 +1,29 @@
 package hr.java.vjezbe.entitet;
 
+import java.io.Serializable;
+
 /**
  * Klasa Profesor sadrži osnovne informacije o osobi koja predaje u obrazovnoj ustanovi
  */
-public class Profesor extends Osoba {
+public class Profesor extends Osoba implements Serializable {
     private String sifra, titula;
+    public static final String NAZIV_DATOTEKE = "dat/profesori.txt";
+    public static final int BROJ_ZAPISA_U_DATOTEKAMA = 5;
 
     /**
      * Graditelj klase Profesor
      */
-    public static class Builder{
+    public static class Builder {
         String ime, prezime, sifra, titula;
+        Long id;
 
         /**
          * Postavljanje šifre profesora
          * @param sifra jedinstvena šifra profesora
          */
-        public Builder(String sifra){
+        public Builder(Long id, String sifra){
             this.sifra = sifra;
+            this.id = id;
         }
 
         /**
@@ -49,11 +55,11 @@ public class Profesor extends Osoba {
          * @return profesor
          */
         public Profesor build(){
-            return new Profesor(this.sifra, this.ime, this.prezime, this.titula);
+            return new Profesor(this.id, this.sifra, this.ime, this.prezime, this.titula);
         }
     }
-    private Profesor(String sifra, String ime, String prezime, String titula) {
-        super(ime, prezime);
+    private Profesor(Long id, String sifra, String ime, String prezime, String titula) {
+        super(id, ime, prezime);
         this.sifra = sifra;
         this.titula = titula;
     }

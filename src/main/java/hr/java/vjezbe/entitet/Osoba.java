@@ -3,10 +3,11 @@ package hr.java.vjezbe.entitet;
 /**
  * Klasa Osoba sadrži osnovne informacije zajedničke svim osobama
  */
-public abstract class Osoba {
+public abstract class Osoba extends Entitet {
     private String ime, prezime;
 
-    public Osoba(String ime, String prezime) {
+    public Osoba(Long id, String ime, String prezime) {
+        super(id);
         this.ime = ime;
         this.prezime = prezime;
     }
@@ -30,4 +31,6 @@ public abstract class Osoba {
     public String getImeIPrezime(){
         return this.ime + " " + this.prezime;
     }
+
+
 }

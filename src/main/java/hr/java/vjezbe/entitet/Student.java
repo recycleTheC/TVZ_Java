@@ -1,19 +1,33 @@
 package hr.java.vjezbe.entitet;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 /**
  * Klasa Student sadrži informacije o osobi koja pohađa studij na obrazovnoj ustanovi
  */
-public class Student extends Osoba{
+public class Student extends Osoba implements Serializable {
     private String jmbag;
     private LocalDate datumRodjenja;
 
-    public Student(String ime, String prezime, String jmbag, LocalDate datumRodjenja) {
-        super(ime, prezime);
+    private int ocjenaZavrsni, ocjenaObrana;
+
+    public static final String NAZIV_DATOTEKE = "dat/studenti.txt";
+    public static final int BROJ_ZAPISA_U_DATOTEKAMA = 7;
+
+    public Student(Long id, String ime, String prezime, String jmbag, LocalDate datumRodjenja) {
+        super(id, ime, prezime);
         this.jmbag = jmbag;
         this.datumRodjenja = datumRodjenja;
+    }
+
+    public Student(Long id, String ime, String prezime, String jmbag, LocalDate datumRodjenja, int ocjenaZavrsni, int ocjenaObrana) {
+        super(id, ime, prezime);
+        this.jmbag = jmbag;
+        this.datumRodjenja = datumRodjenja;
+        this.ocjenaZavrsni = ocjenaZavrsni;
+        this.ocjenaObrana = ocjenaObrana;
     }
 
     public String getJmbag() {
@@ -32,21 +46,28 @@ public class Student extends Osoba{
         this.datumRodjenja = datumRodjenja;
     }
 
-    public Student(String ime, String prezime) {
-        super(ime, prezime);
+    public Student(Long id, String ime, String prezime) {
+        super(id, ime, prezime);
+    }
+
+    public int getOcjenaZavrsni() {
+        return ocjenaZavrsni;
+    }
+
+    public int getOcjenaObrana() {
+        return ocjenaObrana;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return jmbag.equals(student.jmbag);
+        if (!(o instanceof Student student)) return false;
+        return getJmbag().equals(student.getJmbag());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(jmbag);
+        return Objects.hash(getJmbag());
     }
 
     @Override

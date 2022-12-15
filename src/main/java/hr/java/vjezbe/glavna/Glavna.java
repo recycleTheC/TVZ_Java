@@ -44,7 +44,7 @@ public class Glavna {
             System.out.print("Unesite titulu profesora: ");
             String titula = ulaz.nextLine();
 
-            profesori.add(new Profesor.Builder(sifra).osoba(ime, prezime).saTitulom(titula).build());
+            profesori.add(new Profesor.Builder((long)i, sifra).osoba(ime, prezime).saTitulom(titula).build());
         }
     }
 
@@ -73,7 +73,7 @@ public class Glavna {
             int brojNositelja = ucitajBroj(ulaz, "Odabir >> ");
 
             Profesor profesor = profesori.get(brojNositelja - 1);
-            Predmet predmet = new Predmet(sifra, naziv, ectsBodovi, profesor);
+            Predmet predmet = new Predmet((long)i, sifra, naziv, ectsBodovi, profesor);
 
             List<Predmet> postojeciPredmeti = Optional.ofNullable(mapa.get(profesor)).orElse(new ArrayList<>());
             postojeciPredmeti.add(predmet);
@@ -104,7 +104,7 @@ public class Glavna {
             System.out.printf("Unesite JMBAG studenta %s %s: ", prezime, ime);
             String jmbag = ulaz.nextLine();
 
-            studenti.add(new StudentBuilder().setIme(ime).setPrezime(prezime).setJmbag(jmbag).setDatumRodjenja(datumRodjenja).createStudent());
+            studenti.add(new StudentBuilder((long) i).setIme(ime).setPrezime(prezime).setJmbag(jmbag).setDatumRodjenja(datumRodjenja).createStudent());
         }
     }
 
@@ -150,7 +150,7 @@ public class Glavna {
 
             odabraniPredmet.setStudent(odabraniStudent);
 
-            ispiti.add(new Ispit(odabraniPredmet, odabraniStudent, ocjena, datumIVrijeme));
+            ispiti.add(new Ispit((long)i, odabraniPredmet, odabraniStudent, ocjena, datumIVrijeme));
             //ispiti[i].setDvorana(dvorana);
         }
     }
@@ -261,8 +261,8 @@ public class Glavna {
             System.out.print("Unesite naziv obrazovne ustanove: ");
             String nazivUstanove = ulaz.nextLine();
 
-            if(tipUstanove == 1) ustanove.dodajObrazovnuUstanovu(new VeleucilisteJave(nazivUstanove, predmeti, studenti, profesori, ispiti));
-            else if(tipUstanove == 2) ustanove.dodajObrazovnuUstanovu(new FakultetRacunarstva(nazivUstanove, predmeti, studenti, profesori, ispiti));
+            if(tipUstanove == 1) ustanove.dodajObrazovnuUstanovu(new VeleucilisteJave((long) i, nazivUstanove, predmeti, studenti, profesori, ispiti));
+            else if(tipUstanove == 2) ustanove.dodajObrazovnuUstanovu(new FakultetRacunarstva((long)i, nazivUstanove, predmeti, studenti, profesori, ispiti));
 
             for(int j = 0; j < ustanove.dohvatiObrazovnuUstanovu(i).getStudenti().size(); j++){
 

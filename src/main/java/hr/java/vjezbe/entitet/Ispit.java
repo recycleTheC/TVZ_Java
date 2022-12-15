@@ -1,11 +1,12 @@
 package hr.java.vjezbe.entitet;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * Klasa Ispit saržava sve osnovne informacije o ispitima koji se polažu u obrazovnim ustanovama
  */
-public final class Ispit implements Online {
+public final class Ispit extends Entitet implements Online, Serializable {
     private Predmet predmet;
     private Student student;
     private Ocjena ocjena;
@@ -13,14 +14,19 @@ public final class Ispit implements Online {
     private Dvorana dvorana;
     private String software;
 
-    public Ispit(Predmet predmet, Student student, Integer ocjena, LocalDateTime datumIVrijeme) {
+    public static final String NAZIV_DATOTEKE = "dat/ispiti.txt";
+    public static final int BROJ_ZAPISA_U_DATOTEKAMA = 5;
+
+    public Ispit(Long id, Predmet predmet, Student student, Integer ocjena, LocalDateTime datumIVrijeme) {
+        super(id);
         this.predmet = predmet;
         this.student = student;
         this.datumIVrijeme = datumIVrijeme;
         this.setOcjena(ocjena);
     }
 
-    public Ispit(Predmet predmet, Student student, Ocjena ocjena, LocalDateTime datumIVrijeme) {
+    public Ispit(Long id, Predmet predmet, Student student, Ocjena ocjena, LocalDateTime datumIVrijeme) {
+        super(id);
         this.predmet = predmet;
         this.student = student;
         this.datumIVrijeme = datumIVrijeme;

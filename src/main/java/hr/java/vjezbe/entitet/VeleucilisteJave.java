@@ -15,8 +15,8 @@ import java.util.List;
 public class VeleucilisteJave extends ObrazovnaUstanova implements Visokoskolska {
     private static final Logger logger = LoggerFactory.getLogger(Glavna.class);
 
-    public VeleucilisteJave(String naziv, List<Predmet> predmeti, List<Student> studenti, List<Profesor> profesori, List<Ispit> ispiti) {
-        super(naziv, predmeti, studenti, profesori, ispiti);
+    public VeleucilisteJave(Long id, String naziv, List<Predmet> predmeti, List<Student> studenti, List<Profesor> profesori, List<Ispit> ispiti) {
+        super(id, naziv, predmeti, studenti, profesori, ispiti);
     }
 
     @Override

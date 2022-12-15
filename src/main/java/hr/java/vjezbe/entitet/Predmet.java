@@ -1,26 +1,37 @@
 package hr.java.vjezbe.entitet;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
  * Klasa Predmet sadrži osnovne informacije o predmetu u obrazovnim ustanovama
  */
-public class Predmet {
-    private String sifra;
-    private String naziv;
+public class Predmet extends Entitet implements Serializable {
+    private String sifra, naziv;
     private Integer brojEctsBodova;
     private Profesor nositelj;
     private Set<Student> studenti;
 
-    public Predmet(String sifra, String naziv, Integer brojEctsBodova, Profesor nositelj) {
+    public static final String NAZIV_DATOTEKE = "dat/predmeti.txt";
+    public static final int BROJ_ZAPISA_U_DATOTEKAMA = 6;
+
+    public Predmet(Long id, String sifra, String naziv, Integer brojEctsBodova, Profesor nositelj) {
+        super(id);
         this.sifra = sifra;
         this.naziv = naziv;
         this.brojEctsBodova = brojEctsBodova;
         this.nositelj = nositelj;
         this.studenti = new HashSet<>();
+    }
+
+    public Predmet(Long id, String sifra, String naziv, Integer brojEctsBodova, Profesor nositelj, Set<Student> studenti) {
+        super(id);
+        this.sifra = sifra;
+        this.naziv = naziv;
+        this.brojEctsBodova = brojEctsBodova;
+        this.nositelj = nositelj;
+        this.studenti = studenti;
     }
 
     public String getSifra() {
