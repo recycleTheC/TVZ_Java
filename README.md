@@ -2,4 +2,4 @@
 
 Svaka vježba ima svoj _branch_.
 
--> Priprema za 5. laboratorijsku vježbu
+-> Priprema za 6. laboratorijsku vježbu
