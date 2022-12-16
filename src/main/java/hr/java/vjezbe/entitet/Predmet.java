@@ -2,6 +2,7 @@ package hr.java.vjezbe.entitet;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -72,5 +73,17 @@ public class Predmet extends Entitet implements Serializable {
 
     public void setStudent(Student student) {
         this.studenti.add(student);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Predmet predmet)) return false;
+        return getSifra().equals(predmet.getSifra());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSifra());
     }
 }

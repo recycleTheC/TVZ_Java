@@ -19,11 +19,6 @@ import java.util.stream.Collectors;
 public class GlavnaDatoteke {
 
     private static final Logger logger = LoggerFactory.getLogger(GlavnaDatoteke.class);
-    private static final int BROJ_PROFESORA = 2;
-    private static final int BROJ_STUDENATA = 2;
-    private static final int BROJ_PREDMETA = 3;
-
-    private static final int BROJ_ISPITNIH_ROKOVA = 2;
 
     /**
      * Učitavanje podataka o profesorima
@@ -312,5 +307,94 @@ public class GlavnaDatoteke {
         }
 
         serijalizirajUstanove(ustanove);
+
+        // 1. zadatak
+        System.out.println("Upiši putanju do tekstualne datoteke \"prosjek\"!");
+        System.out.print(": ");
+
+        Scanner ulaz = new Scanner(System.in);
+        String path = ulaz.nextLine();
+
+        File datoteka = new File(path);
+        if(!datoteka.exists()){
+            System.out.println("Datoteka ne postji!");
+            System.exit(1);
+        }
+
+        // 2. zadatak
+
+        List<Zbirka> zbirka = new ArrayList<>();
+
+        for(Predmet predmet : predmeti){
+            List<Ispit> ispitiSPredmeta = ispiti.stream().filter(ispit -> ispit.getPredmet().equals(predmet)).toList();
+            for(Ispit ispit : ispitiSPredmeta){
+                zbirka.add(new Zbirka(ispit.getStudent().getId(), ispit.getPredmet().getSifra(), ispit.getOcjena()));
+            }
+        }
+
+        for (Predmet predmet : predmeti){
+            String nazivDatoteke = "dat/zbirka-" + predmet.getSifra() + ".dat";
+
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nazivDatoteke))) {
+                List<Zbirka> filtriranaZbirka = zbirka.stream().filter(zbirka1 -> zbirka1.getSifraPredmeta().equals(predmet.getSifra())).toList();
+                for (Zbirka odabrana : filtriranaZbirka) {
+                    out.writeObject(odabrana);
+                }
+            } catch (IOException ex) {
+                System.err.println(ex);
+            }
+        }
+
+        // 3. zadatak
+        System.out.print("Upiši šifru predmeta: ");
+        String sifraOdabranogPredmeta = ulaz.nextLine();
+
+        Map<Predmet, BigDecimal> prosjeciPredmeta = new HashMap<>();
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(path))){
+            List<String> zapisi = reader.lines().toList();
+
+            for(int i = 0; i < zapisi.size(); i += 2){
+                String sifraPredmeta = zapisi.get(i);
+                Optional<Predmet> upisaniPredmet = predmeti.stream().filter(predmet -> predmet.getSifra().equals(sifraPredmeta)).findFirst();
+
+                BigDecimal prosjek = new BigDecimal(zapisi.get(i+1));
+
+                prosjeciPredmeta.put(upisaniPredmet.get(), prosjek);
+            }
+        } catch (IOException | RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+
+        List<Zbirka> ucitanaZbirka = new ArrayList<>();
+
+        for (Predmet predmet : predmeti){
+            String nazivDatoteke = "dat/zbirka-" + predmet.getSifra() + ".dat";
+
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(nazivDatoteke))) {
+                Zbirka ucitana = (Zbirka)in.readObject();
+                if(ucitana != null){
+                    ucitanaZbirka.add(ucitana);
+                }
+            } catch (ClassNotFoundException | IOException ex) {
+                //System.out.println(ex);
+            }
+        }
+
+        Optional<Predmet> odabraniPredmet = predmeti.stream().filter(predmet -> predmet.getSifra().equals(sifraOdabranogPredmeta)).findFirst();
+        List<Zbirka> zbirkeOdabranogPredmeta = zbirka.stream().filter(zbirka1 -> zbirka1.getSifraPredmeta().equals(sifraOdabranogPredmeta)).toList();
+        BigDecimal prosjekOdabranogPredmeta = prosjeciPredmeta.get(odabraniPredmet.get());
+
+        for(Zbirka odabrana : zbirkeOdabranogPredmeta){
+            System.out.print("Student (ID: " + odabrana.getIdStudenta() + ") ima ocjenu ");
+            if(BigDecimal.valueOf(odabrana.getOcjena().getBrojcanaOznaka()).compareTo(prosjekOdabranogPredmeta) == 1){
+                System.out.print("veću ");
+            }
+            else {
+                System.out.print("manju ");
+            }
+
+            System.out.println("od prosjeka!");
+        }
     }
 }
