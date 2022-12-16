@@ -250,16 +250,7 @@ public class GlavnaDatoteke {
 
                 if(ustanova instanceof VeleucilisteJave veleuciliste){
                     ispitiStudenta = veleuciliste.filtrirajIspitePoStudentu(veleuciliste.getIspiti(), student);
-                }
-                else if(ustanova instanceof FakultetRacunarstva fakultet){
-                    ispitiStudenta = fakultet.filtrirajIspitePoStudentu(fakultet.getIspiti(), student);
-                }
 
-                if(studentSNegativnomOcjenom(ispitiStudenta)){
-                    continue;
-                }
-
-                if(ustanova instanceof VeleucilisteJave veleuciliste){
                     try {
                         System.out.println("Konačna ocjena studija studenta " + student.getImeIPrezime()+" je " + veleuciliste.izracunajKonacnuOcjenuStudijaZaStudenta(ispitiStudenta, student.getOcjenaZavrsni(), student.getOcjenaObrana()));
                     }
@@ -268,6 +259,8 @@ public class GlavnaDatoteke {
                     }
                 }
                 else if(ustanova instanceof FakultetRacunarstva fakultet){
+                    ispitiStudenta = fakultet.filtrirajIspitePoStudentu(fakultet.getIspiti(), student);
+
                     try{
                         System.out.println("Konačna ocjena studija studenta " + student.getImeIPrezime()+" je " + fakultet.izracunajKonacnuOcjenuStudijaZaStudenta(ispitiStudenta, student.getOcjenaZavrsni(), student.getOcjenaObrana()));
                     }
