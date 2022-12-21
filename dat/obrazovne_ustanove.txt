@@ -1,0 +1,14 @@
+1
+1
+Tehničko veleučilište
+1 2
+1 2
+1 2 3
+1 2
+2
+2
+Fakultet elektrotehnike i računarstva
+3 4
+3 4
+4 5 6
+3 4

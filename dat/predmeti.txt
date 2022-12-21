@@ -1,0 +1,36 @@
+1
+PR5543
+Programiranje u jeziku Java
+6
+1
+1 2
+2
+PR2343
+Web aplikacije u Javi
+7
+1
+1 2
+3
+PR2343
+Oblikovni obrasci u programiranju
+7
+2
+1
+4
+SP710
+Programiranje
+5
+3
+3 4
+5
+SP9000
+Objektno orijentirano programiranje
+5
+4
+3 4
+6
+SP9876
+Mobilne aplikacije
+5
+4
+3 4

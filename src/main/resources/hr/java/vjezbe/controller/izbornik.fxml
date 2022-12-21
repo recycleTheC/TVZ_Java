@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+
+<MenuBar prefHeight="25.0" minWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.java.vjezbe.controller.IzbornikController">
+    <menus>
+        <Menu mnemonicParsing="false" text="Profesori">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#openPretragaProfesoraView" text="Pretraga" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Studenti">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#openPretragaStudenataView" text="Pretraga" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Predmeti">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#openPretragaPredmetaView" text="Pretraga" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Ispitni rokovi">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#openPretragaIspitaView" text="Pretraga" />
+            </items>
+        </Menu>
+    </menus>
+</MenuBar>
