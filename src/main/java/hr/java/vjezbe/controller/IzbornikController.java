@@ -38,4 +38,12 @@ public class IzbornikController {
         MainApplication.getMainStage().setScene(scene);
         MainApplication.getMainStage().show();
     }
+
+    public void openPregledIspitaView() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(PretragaProfesoraController.class.getResource("pregled-ispita-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        MainApplication.getMainStage().setTitle("Pregled ispita - Programiranje u jeziku Java - (c) Mario Kopjar 2022.");
+        MainApplication.getMainStage().setScene(scene);
+        MainApplication.getMainStage().show();
+    }
 }
