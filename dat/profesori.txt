@@ -2,12 +2,12 @@
 P5567
 Janko
 Petrović
-Viši predavač
+viši predavač
 2
 P9878
 Ivica
 Župan
-Profesor visoke škole
+profesor visoke škole
 3
 P987
 Darko
@@ -17,4 +17,14 @@ predavač
 P661
 Danica
 Despot
+predavač
+5
+VG1
+Aleksander
+Radovan
+dr. sc.
+6
+VG2
+Marijan
+Marković
 predavač

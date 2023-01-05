@@ -9,21 +9,25 @@
         <Menu mnemonicParsing="false" text="Profesori">
             <items>
                 <MenuItem mnemonicParsing="false" onAction="#openPretragaProfesoraView" text="Pretraga" />
+                <MenuItem mnemonicParsing="false" onAction="#openUnosProfesoraView" text="Unos" />
             </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Studenti">
             <items>
                 <MenuItem mnemonicParsing="false" onAction="#openPretragaStudenataView" text="Pretraga" />
+                <MenuItem mnemonicParsing="false" onAction="#openUnosStudenataView" text="Unos" />
             </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Predmeti">
             <items>
                 <MenuItem mnemonicParsing="false" onAction="#openPretragaPredmetaView" text="Pretraga" />
+                <MenuItem mnemonicParsing="false" onAction="#openUnosPredmetaView" text="Unos" />
             </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Ispitni rokovi">
             <items>
                 <MenuItem mnemonicParsing="false" onAction="#openPretragaIspitaView" text="Pretraga" />
+                <MenuItem mnemonicParsing="false" onAction="#openUnosIspitaView" text="Unos" />
             </items>
         </Menu>
     </menus>

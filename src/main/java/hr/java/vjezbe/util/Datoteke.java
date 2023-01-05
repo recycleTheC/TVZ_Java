@@ -2,9 +2,7 @@ package hr.java.vjezbe.util;
 
 import hr.java.vjezbe.entitet.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -66,7 +64,7 @@ public class Datoteke {
 
                 List<Long> idUpisanihStudenata = Arrays.stream(zapisi.get(i + 5).split(" ")).map(Long::parseLong).toList();
                 Set<Student> upisaniStudenti = studenti.stream().filter(student -> idUpisanihStudenata.contains(student.getId())).collect(Collectors.toSet());
-                if(idUpisanihStudenata.size() != upisaniStudenti.size()) throw new RuntimeException("Neispravan zapis studenata u datoteci predmeta!");
+                if(idUpisanihStudenata.size() != upisaniStudenti.size() && !idUpisanihStudenata.contains(0L)) throw new RuntimeException("Neispravan zapis studenata u datoteci predmeta!");
 
                 predmeti.add(new Predmet(id, sifra, naziv, ectsBodovi, nositelj.get(), upisaniStudenti));
             }
@@ -187,5 +185,85 @@ public class Datoteke {
         }
 
         return ustanove;
+    }
+
+    public static OptionalLong maxIdProfesora(){
+        return ucitajProfesore().stream().mapToLong(Entitet::getId).max();
+    }
+
+    public static OptionalLong maxIdStudenta(){
+        return ucitajStudente().stream().mapToLong(Entitet::getId).max();
+    }
+
+    public static OptionalLong maxIdIspita(){
+        List<Profesor> profesori = ucitajProfesore();
+        List<Student> studenti = ucitajStudente();
+        List<Predmet> predmeti = ucitajPredmete(profesori, studenti);
+        return ucitajIspitneRokove(predmeti, studenti).stream().mapToLong(Entitet::getId).max();
+    }
+
+    public static OptionalLong maxIdPredmeta(){
+        List<Profesor> profesori = ucitajProfesore();
+        List<Student> studenti = ucitajStudente();
+        return ucitajPredmete(profesori, studenti).stream().mapToLong(Entitet::getId).max();
+    }
+
+    public static void unosProfesora(Profesor profesor){
+        System.out.println("Unos profesora u datoteku...");
+
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(Profesor.NAZIV_DATOTEKE, true))){
+            writer.write("\n" + profesor.getId().toString() + "\n");
+            writer.write(profesor.getSifra()+ "\n");
+            writer.write(profesor.getIme()+ "\n");
+            writer.write(profesor.getPrezime()+ "\n");
+            writer.write(profesor.getTitula());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void unosStudenta(Student student){
+        System.out.println("Unos studenta u datoteku...");
+
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(Student.NAZIV_DATOTEKE, true))){
+            writer.write("\n" + student.getId().toString() + "\n");
+            writer.write(student.getIme()+ "\n");
+            writer.write(student.getPrezime()+ "\n");
+            writer.write(student.getDatumRodjenja().format(DateTimeFormatter.ofPattern("dd.MM.yyyy."))+ "\n");
+            writer.write(student.getJmbag()+ "\n");
+            writer.write(student.getOcjenaZavrsni() + "\n");
+            writer.write(student.getOcjenaObrana() + "");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void unosPredmeta(Predmet predmet){
+        System.out.println("Unos predmeta u datoteku...");
+
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(Predmet.NAZIV_DATOTEKE, true))){
+            writer.write("\n" + predmet.getId().toString() + "\n");
+            writer.write(predmet.getSifra()+ "\n");
+            writer.write(predmet.getNaziv()+ "\n");
+            writer.write(predmet.getBrojEctsBodova()+ "\n");
+            writer.write(predmet.getNositelj().getId()+ "\n");
+            writer.write("0\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void unosIspita(Ispit ispit){
+        System.out.println("Unos ispita u datoteku...");
+
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(Ispit.NAZIV_DATOTEKE, true))){
+            writer.write("\n" + ispit.getId().toString() + "\n");
+            writer.write(ispit.getPredmet().getId() + "\n");
+            writer.write(ispit.getStudent().getId() + "\n");
+            writer.write(ispit.getOcjena().getBrojcanaOznaka() + "\n");
+            writer.write(ispit.getDatumIVrijeme().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.'T'HH:mm")) + "\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

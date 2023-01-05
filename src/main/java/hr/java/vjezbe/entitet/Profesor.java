@@ -58,7 +58,7 @@ public class Profesor extends Osoba implements Serializable {
             return new Profesor(this.id, this.sifra, this.ime, this.prezime, this.titula);
         }
     }
-    private Profesor(Long id, String sifra, String ime, String prezime, String titula) {
+    public Profesor(Long id, String sifra, String ime, String prezime, String titula) {
         super(id, ime, prezime);
         this.sifra = sifra;
         this.titula = titula;
@@ -78,5 +78,10 @@ public class Profesor extends Osoba implements Serializable {
 
     public void setTitula(String titula) {
         this.titula = titula;
+    }
+
+    @Override
+    public String toString() {
+        return getImeIPrezime() + ", " + getTitula();
     }
 }

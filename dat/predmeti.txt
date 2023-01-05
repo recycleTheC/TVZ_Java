@@ -3,13 +3,13 @@ PR5543
 Programiranje u jeziku Java
 6
 1
-1 2
+0
 2
 PR2343
 Web aplikacije u Javi
 7
 1
-1 2
+0
 3
 PR2343
 Oblikovni obrasci u programiranju
@@ -34,3 +34,9 @@ Mobilne aplikacije
 5
 4
 3 4
+7
+XML programiranje
+PR654
+8
+3
+0

@@ -73,4 +73,9 @@ public class Predmet extends Entitet implements Serializable {
     public void setStudent(Student student) {
         this.studenti.add(student);
     }
+
+    @Override
+    public String toString() {
+        return naziv + " (" + nositelj.getImeIPrezime() + ")";
+    }
 }
