@@ -247,7 +247,17 @@ public class Datoteke {
             writer.write(predmet.getNaziv()+ "\n");
             writer.write(predmet.getBrojEctsBodova()+ "\n");
             writer.write(predmet.getNositelj().getId()+ "\n");
-            writer.write("0\n");
+
+            if(predmet.getStudenti().size() > 0){
+                predmet.getStudenti().forEach(student -> {
+                    try {
+                        writer.write(student.getId() + " ");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }
+            else writer.write("0");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
