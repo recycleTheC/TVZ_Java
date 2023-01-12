@@ -82,8 +82,6 @@ public class Datoteke {
     public static List<Student> ucitajStudente() {
         List<Student> studenti = new ArrayList<>();
 
-        System.out.println("Učitavanje studenata...");
-
         try(BufferedReader reader = new BufferedReader(new FileReader(Student.NAZIV_DATOTEKE))){
             List<String> zapisi = reader.lines().toList();
 
@@ -96,7 +94,16 @@ public class Datoteke {
                 int ocjenaZavrsni = Integer.parseInt(zapisi.get(i+5));
                 int ocjenaObrane = Integer.parseInt(zapisi.get(i+6));
 
-                studenti.add(new StudentBuilder(id).setIme(ime).setPrezime(prezime).setJmbag(jmbag).setDatumRodjenja(datumRodjenja).setOcjenaZavrsni(ocjenaZavrsni, ocjenaObrane).createStudent());
+                String gdjeZivi = zapisi.get(i+7);
+                String prehrana = zapisi.get(i+8).replace(";", " ");
+                String tipStudenta = zapisi.get(i+9);
+
+                Student student = new StudentBuilder(id).setIme(ime).setPrezime(prezime).setJmbag(jmbag).setDatumRodjenja(datumRodjenja).setOcjenaZavrsni(ocjenaZavrsni, ocjenaObrane).createStudent();
+                student.setGdjeZivi(gdjeZivi);
+                student.setPrehrana(prehrana);
+                student.setTipStudenta(tipStudenta);
+
+                studenti.add(student);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -223,16 +230,17 @@ public class Datoteke {
     }
 
     public static void unosStudenta(Student student){
-        System.out.println("Unos studenta u datoteku...");
-
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(Student.NAZIV_DATOTEKE, true))){
-            writer.write("\n" + student.getId().toString() + "\n");
+            writer.write(student.getId().toString() + "\n");
             writer.write(student.getIme()+ "\n");
             writer.write(student.getPrezime()+ "\n");
             writer.write(student.getDatumRodjenja().format(DateTimeFormatter.ofPattern("dd.MM.yyyy."))+ "\n");
             writer.write(student.getJmbag()+ "\n");
             writer.write(student.getOcjenaZavrsni() + "\n");
-            writer.write(student.getOcjenaObrana() + "");
+            writer.write(student.getOcjenaObrana() + "\n");
+            writer.write(student.getGdjeZivi() + "\n");
+            writer.write(student.getPrehrana() + "\n");
+            writer.write(student.getTipStudenta() + "\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

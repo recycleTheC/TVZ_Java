@@ -1,0 +1,40 @@
+1
+Marko
+Marković
+04.01.2000.
+1515
+5
+5
+u studentskom domu
+menza 
+redovni
+2
+Ivan
+Ivkić
+15.01.2000.
+454985165
+2
+2
+u studentskom domu
+menza pekara 
+izvanredni
+3
+Marko
+Marulić
+29.02.1996.
+0264521
+5
+6
+u vlastitom stanu
+restoran pekara 
+izvanredni
+4
+gfdgfd
+gfdgdf
+29.12.2022.
+gfdsg
+5
+5
+u vlastitom stanu
+restoran 
+izvanredni

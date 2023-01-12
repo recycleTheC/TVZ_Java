@@ -13,8 +13,10 @@ public class Student extends Osoba implements Serializable {
 
     private int ocjenaZavrsni, ocjenaObrana;
 
-    public static final String NAZIV_DATOTEKE = "dat/studenti.txt";
-    public static final int BROJ_ZAPISA_U_DATOTEKAMA = 7;
+    public static final String NAZIV_DATOTEKE = "dat/studenti_tekst.txt";
+    public static final int BROJ_ZAPISA_U_DATOTEKAMA = 10;
+
+    private String tipStudenta, prehrana, gdjeZivi;
 
     public Student(Long id, String ime, String prezime, String jmbag, LocalDate datumRodjenja) {
         super(id, ime, prezime);
@@ -73,5 +75,29 @@ public class Student extends Osoba implements Serializable {
     @Override
     public String toString() {
         return this.getImeIPrezime();
+    }
+
+    public String getTipStudenta() {
+        return tipStudenta;
+    }
+
+    public void setTipStudenta(String tipStudenta) {
+        this.tipStudenta = tipStudenta;
+    }
+
+    public String getGdjeZivi() {
+        return gdjeZivi;
+    }
+
+    public void setGdjeZivi(String gdjeZivi) {
+        this.gdjeZivi = gdjeZivi;
+    }
+
+    public String getPrehrana() {
+        return prehrana;
+    }
+
+    public void setPrehrana(String prehrana) {
+        this.prehrana = prehrana;
     }
 }

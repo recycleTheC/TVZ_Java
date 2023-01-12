@@ -16,6 +16,7 @@
             <items>
                 <MenuItem mnemonicParsing="false" onAction="#openPretragaStudenataView" text="Pretraga" />
                 <MenuItem mnemonicParsing="false" onAction="#openUnosStudenataView" text="Unos" />
+                <MenuItem mnemonicParsing="false" onAction="#openImportExportStudentView" text="Import / export" />
             </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Predmeti">
