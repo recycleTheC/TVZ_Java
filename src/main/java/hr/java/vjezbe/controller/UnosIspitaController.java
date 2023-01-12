@@ -6,13 +6,12 @@ import hr.java.vjezbe.entitet.Profesor;
 import hr.java.vjezbe.entitet.Student;
 import hr.java.vjezbe.util.Datoteke;
 import hr.java.vjezbe.util.MessageBox;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import tornadofx.control.DateTimePicker;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class UnosIspitaController {
@@ -23,7 +22,7 @@ public class UnosIspitaController {
     @FXML
     private Spinner<Integer> ocjenaSpinner;
     @FXML
-    private DatePicker datumIspitaField;
+    private DateTimePicker datumIspitaField;
 
     public void initialize() {
         List<Student> studentList = Datoteke.ucitajStudente();
@@ -37,7 +36,7 @@ public class UnosIspitaController {
         Predmet predmet = predmetBox.getValue();
         Student student = studentBox.getValue();
         Integer ocjena = ocjenaSpinner.getValue();
-        LocalDate datum = datumIspitaField.getValue();
+        LocalDateTime datum = datumIspitaField.getDateTimeValue();
 
         StringBuilder greska = new StringBuilder();
 
@@ -50,7 +49,7 @@ public class UnosIspitaController {
             MessageBox.pokazi(Alert.AlertType.ERROR, "Unos ispita", "Nedostatak informacija", greska.toString());
         }
         else{
-            Ispit ispit = new Ispit(Datoteke.maxIdIspita().getAsLong() + 1, predmet, student, ocjena, datum.atStartOfDay());
+            Ispit ispit = new Ispit(Datoteke.maxIdIspita().getAsLong() + 1, predmet, student, ocjena, datum);
             Datoteke.unosIspita(ispit);
             MessageBox.pokazi(Alert.AlertType.INFORMATION, "Unos ispita", "Uspješan unos", "Ispit je uspješno unesen!");
         }

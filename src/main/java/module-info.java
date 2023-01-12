@@ -2,6 +2,7 @@ module hr.java.vjezbe.glavna {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.slf4j;
+    requires tornadofx.controls;
 
 
     opens hr.java.vjezbe.glavna to javafx.fxml;

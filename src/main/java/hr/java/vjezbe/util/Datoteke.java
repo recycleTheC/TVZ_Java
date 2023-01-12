@@ -271,7 +271,7 @@ public class Datoteke {
             writer.write(ispit.getPredmet().getId() + "\n");
             writer.write(ispit.getStudent().getId() + "\n");
             writer.write(ispit.getOcjena().getBrojcanaOznaka() + "\n");
-            writer.write(ispit.getDatumIVrijeme().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.'T'HH:mm")) + "\n");
+            writer.write(ispit.getDatumIVrijeme().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.'T'HH:mm")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
