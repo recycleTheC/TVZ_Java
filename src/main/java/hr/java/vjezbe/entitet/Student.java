@@ -16,6 +16,11 @@ public class Student extends Osoba implements Serializable {
     public static final String NAZIV_DATOTEKE = "dat/studenti.txt";
     public static final int BROJ_ZAPISA_U_DATOTEKAMA = 7;
 
+    public Student(String ime, String prezime, String jmbag, LocalDate datumRodjenja) {
+        super(ime, prezime);
+        this.jmbag = jmbag;
+        this.datumRodjenja = datumRodjenja;
+    }
     public Student(Long id, String ime, String prezime, String jmbag, LocalDate datumRodjenja) {
         super(id, ime, prezime);
         this.jmbag = jmbag;

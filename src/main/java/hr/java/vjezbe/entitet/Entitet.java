@@ -3,6 +3,8 @@ package hr.java.vjezbe.entitet;
 public class Entitet {
     private Long id;
 
+    public Entitet() {
+    }
     public Entitet(Long id) {
         this.id = id;
     }

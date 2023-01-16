@@ -25,6 +25,14 @@ public final class Ispit extends Entitet implements Online, Serializable {
         this.setOcjena(ocjena);
     }
 
+    public Ispit(Predmet predmet, Student student, Integer ocjena, LocalDateTime datumIVrijeme) {
+        super();
+        this.predmet = predmet;
+        this.student = student;
+        this.datumIVrijeme = datumIVrijeme;
+        this.setOcjena(ocjena);
+    }
+
     public Ispit(Long id, Predmet predmet, Student student, Ocjena ocjena, LocalDateTime datumIVrijeme) {
         super(id);
         this.predmet = predmet;

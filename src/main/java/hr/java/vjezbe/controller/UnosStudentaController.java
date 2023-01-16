@@ -1,7 +1,8 @@
 package hr.java.vjezbe.controller;
 
+import hr.java.vjezbe.database.StudentRepository;
 import hr.java.vjezbe.entitet.Student;
-import hr.java.vjezbe.util.Datoteke;
+import hr.java.vjezbe.iznimke.BazaPodatakaException;
 import hr.java.vjezbe.util.MessageBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -26,7 +27,7 @@ public class UnosStudentaController {
         String prezime = prezimeStudentaField.getText();
         String jmbag = jmbagStudentaField.getText();
         LocalDate datumRodjenja = datumRodjenjaStudentaField.getValue();
-        int zavrsni = 0, obrana = 0;
+        //int zavrsni = 0, obrana = 0;
 
         StringBuilder greska = new StringBuilder();
 
@@ -35,18 +36,22 @@ public class UnosStudentaController {
         if(jmbag.isBlank()) greska.append("JMBAG studenta nije unesen!\n");
         if(datumRodjenja == null) greska.append("Datum rođenja studenta nije unesen!\n");
 
-        if(zavrsniField.getText().isBlank()) greska.append("Ocjena završnog rada nije unesena!\n");
+        /*if(zavrsniField.getText().isBlank()) greska.append("Ocjena završnog rada nije unesena!\n");
         else zavrsni = Integer.parseInt(zavrsniField.getText());
 
         if(obranaField.getText().isBlank()) greska.append("Ocjena obrane završnog rada nije unesena!\n");
-        else obrana = Integer.parseInt(obranaField.getText());
+        else obrana = Integer.parseInt(obranaField.getText());*/
 
         if(!greska.isEmpty()){
             MessageBox.pokazi(Alert.AlertType.ERROR, "Unos studenta", "Nedostaju vrijednosti", greska.toString());
         }
         else{
-            Datoteke.unosStudenta(new Student(Datoteke.maxIdStudenta().getAsLong() + 1, ime, prezime, jmbag, datumRodjenja, zavrsni, obrana));
-            MessageBox.pokazi(Alert.AlertType.INFORMATION, "Unos studenta", "Uspješan unos", "Student " + ime + " " + prezime + " uspješno dodan!");
+            try{
+                StudentRepository.spremi(new Student(ime, prezime, jmbag, datumRodjenja));
+                MessageBox.pokazi(Alert.AlertType.INFORMATION, "Unos studenta", "Uspješan unos", "Student " + ime + " " + prezime + " uspješno dodan!");
+            } catch (BazaPodatakaException e) {
+                MessageBox.pokazi(Alert.AlertType.ERROR, "Unos studenta", "Neuspješan unos", "Student " + ime + " " + prezime + " nije dodan u bazu!\n" + e.getCause().getMessage());
+            }
         }
     }
 }

@@ -12,6 +12,12 @@ public abstract class Osoba extends Entitet {
         this.prezime = prezime;
     }
 
+    public Osoba(String ime, String prezime) {
+        super();
+        this.ime = ime;
+        this.prezime = prezime;
+    }
+
     public String getIme() {
         return ime;
     }

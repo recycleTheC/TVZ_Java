@@ -25,6 +25,15 @@ public class Predmet extends Entitet implements Serializable {
         this.studenti = new HashSet<>();
     }
 
+    public Predmet(String sifra, String naziv, Integer brojEctsBodova, Profesor nositelj) {
+        super();
+        this.sifra = sifra;
+        this.naziv = naziv;
+        this.brojEctsBodova = brojEctsBodova;
+        this.nositelj = nositelj;
+        this.studenti = new HashSet<>();
+    }
+
     public Predmet(Long id, String sifra, String naziv, Integer brojEctsBodova, Profesor nositelj, Set<Student> studenti) {
         super(id);
         this.sifra = sifra;
@@ -32,6 +41,10 @@ public class Predmet extends Entitet implements Serializable {
         this.brojEctsBodova = brojEctsBodova;
         this.nositelj = nositelj;
         this.studenti = studenti;
+    }
+
+    public Predmet() {
+        super();
     }
 
     public String getSifra() {

@@ -1,49 +1,49 @@
 package hr.java.vjezbe.controller;
 
+import hr.java.vjezbe.database.PredmetRepository;
+import hr.java.vjezbe.database.ProfesorRepository;
 import hr.java.vjezbe.entitet.Predmet;
 import hr.java.vjezbe.entitet.Profesor;
-import hr.java.vjezbe.entitet.Student;
-import hr.java.vjezbe.util.Datoteke;
+import hr.java.vjezbe.iznimke.BazaPodatakaException;
+import hr.java.vjezbe.util.MessageBox;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-
-import java.util.List;
-
+import javafx.scene.control.*;
 public class PretragaPredmetaController {
     @FXML
-    private TextField nazivPredmetaField, sifraPredmetaField, nositeljPredmetaField;
+    private TextField nazivPredmetaField, sifraPredmetaField;
     @FXML
     private Spinner<Integer> brojEctsBodovaSpinner;
     @FXML
     private TableView<Predmet> predmetTableView;
     @FXML
+    private ChoiceBox<Profesor> profesorChoiceBox;
+    @FXML
     private TableColumn<Predmet, String> nazivPredmetaColumn, sifraPredmetaColumn, brojEctsBodovaColumn, nositeljPredmetaColumn;
-    private List<Predmet> predmetList;
     public void initialize() {
-        List<Profesor> profesorList = Datoteke.ucitajProfesore();
-        List<Student> studentList = Datoteke.ucitajStudente();
-        predmetList = Datoteke.ucitajPredmete(profesorList, studentList);
-
         nazivPredmetaColumn.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNaziv()));
         sifraPredmetaColumn.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getSifra()));
         brojEctsBodovaColumn.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getBrojEctsBodova().toString()));
         nositeljPredmetaColumn.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getNositelj().getImeIPrezime()));
 
-        predmetTableView.setItems(FXCollections.observableList(predmetList));
+        try {
+            predmetTableView.setItems(FXCollections.observableList(PredmetRepository.dohvatiPredmete()));
+            profesorChoiceBox.setItems(FXCollections.observableList(ProfesorRepository.dohvatiProfesore()));
+        } catch (BazaPodatakaException ex) {
+            MessageBox.pokazi(Alert.AlertType.ERROR, "Baza podataka", "Greška", ex.getMessage() + ": " + ex.getCause().getMessage());
+        }
     }
     public void dohvatiPredmete(){
-        String naziv = nazivPredmetaField.getText().toLowerCase();
-        String sifra = sifraPredmetaField.getText().toLowerCase();
+        String naziv = nazivPredmetaField.getText();
+        String sifra = sifraPredmetaField.getText();
         Integer ects = brojEctsBodovaSpinner.getValue();
-        String imeNositelja = nositeljPredmetaField.getText().toLowerCase();
+        Profesor nositelj = profesorChoiceBox.getValue();
 
-        System.out.println(ects);
-        List<Predmet> filtriraniPredmeti = predmetList.stream().filter(p -> p.getNaziv().toLowerCase().contains(naziv) && p.getSifra().toLowerCase().startsWith(sifra) && (ects == 0 || p.getBrojEctsBodova().equals(ects)) && p.getNositelj().getImeIPrezime().toLowerCase().contains(imeNositelja)).toList();
-        predmetTableView.setItems(FXCollections.observableList(filtriraniPredmeti));
+        try {
+            predmetTableView.setItems(FXCollections.observableList(PredmetRepository.dohvatiPredmete(new Predmet(sifra, naziv, ects, nositelj))));
+        } catch (BazaPodatakaException ex) {
+            MessageBox.pokazi(Alert.AlertType.ERROR, "Baza podataka", "Greška", ex.getMessage() + ": " + ex.getCause().getMessage());
+        }
     }
 }

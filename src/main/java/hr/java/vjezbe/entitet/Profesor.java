@@ -64,6 +64,12 @@ public class Profesor extends Osoba implements Serializable {
         this.titula = titula;
     }
 
+    public Profesor(String sifra, String ime, String prezime, String titula) {
+        super(ime, prezime);
+        this.sifra = sifra;
+        this.titula = titula;
+    }
+
     public String getSifra() {
         return sifra;
     }

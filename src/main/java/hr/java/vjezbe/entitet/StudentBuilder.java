@@ -14,6 +14,8 @@ public class StudentBuilder {
     public StudentBuilder(Long id) {
         this.id = id;
     }
+    public StudentBuilder() {
+    }
     public StudentBuilder setIme(String ime) {
         this.ime = ime;
         return this;

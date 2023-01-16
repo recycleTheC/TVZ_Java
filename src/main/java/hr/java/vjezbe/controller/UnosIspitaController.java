@@ -1,10 +1,12 @@
 package hr.java.vjezbe.controller;
 
+import hr.java.vjezbe.database.IspitRepository;
+import hr.java.vjezbe.database.PredmetRepository;
+import hr.java.vjezbe.database.StudentRepository;
 import hr.java.vjezbe.entitet.Ispit;
 import hr.java.vjezbe.entitet.Predmet;
-import hr.java.vjezbe.entitet.Profesor;
 import hr.java.vjezbe.entitet.Student;
-import hr.java.vjezbe.util.Datoteke;
+import hr.java.vjezbe.iznimke.BazaPodatakaException;
 import hr.java.vjezbe.util.MessageBox;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -12,7 +14,6 @@ import javafx.scene.control.*;
 import tornadofx.control.DateTimePicker;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class UnosIspitaController {
     @FXML
@@ -25,12 +26,14 @@ public class UnosIspitaController {
     private DateTimePicker datumIspitaField;
 
     public void initialize() {
-        List<Student> studentList = Datoteke.ucitajStudente();
-        List<Profesor> profesorList = Datoteke.ucitajProfesore();
-        List<Predmet> predmetList = Datoteke.ucitajPredmete(profesorList, studentList);
+        datumIspitaField.setFormat("dd.MM.yyyy. HH:mm");
 
-        predmetBox.setItems(FXCollections.observableList(predmetList));
-        studentBox.setItems(FXCollections.observableList(studentList));
+        try {
+            predmetBox.setItems(FXCollections.observableList(PredmetRepository.dohvatiPredmete()));
+            studentBox.setItems(FXCollections.observableList(StudentRepository.dohvatiStudente()));
+        } catch (BazaPodatakaException e) {
+            MessageBox.pokazi(Alert.AlertType.ERROR, "Baza podataka", e.getMessage(), e.getCause().getMessage());
+        }
     }
     public void spremiIspit(){
         Predmet predmet = predmetBox.getValue();
@@ -49,9 +52,13 @@ public class UnosIspitaController {
             MessageBox.pokazi(Alert.AlertType.ERROR, "Unos ispita", "Nedostatak informacija", greska.toString());
         }
         else{
-            Ispit ispit = new Ispit(Datoteke.maxIdIspita().getAsLong() + 1, predmet, student, ocjena, datum);
-            Datoteke.unosIspita(ispit);
-            MessageBox.pokazi(Alert.AlertType.INFORMATION, "Unos ispita", "Uspješan unos", "Ispit je uspješno unesen!");
+            try{
+                IspitRepository.spremi(new Ispit( predmet, student, ocjena, datum));
+                MessageBox.pokazi(Alert.AlertType.INFORMATION, "Unos ispita", "Uspješan unos", "Ispit je uspješno unesen!");
+            }
+            catch (BazaPodatakaException ex){
+                MessageBox.pokazi(Alert.AlertType.ERROR, "Unos ispita", "Neuspješan unos", "Ispit nije uspješno unesen!\n" + ex.getCause().getMessage());
+            }
         }
     }
 }

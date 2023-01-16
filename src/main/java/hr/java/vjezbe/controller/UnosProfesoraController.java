@@ -1,7 +1,8 @@
 package hr.java.vjezbe.controller;
 
+import hr.java.vjezbe.database.ProfesorRepository;
 import hr.java.vjezbe.entitet.Profesor;
-import hr.java.vjezbe.util.Datoteke;
+import hr.java.vjezbe.iznimke.BazaPodatakaException;
 import hr.java.vjezbe.util.MessageBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -34,8 +35,12 @@ public class UnosProfesoraController {
             MessageBox.pokazi(Alert.AlertType.ERROR, "Unos profesora", "Nedostaju vrijednosti", greska.toString());
         }
         else{
-            Datoteke.unosProfesora(new Profesor(Datoteke.maxIdProfesora().getAsLong() + 1, sifra, ime, prezime, titula));
-            MessageBox.pokazi(Alert.AlertType.INFORMATION, "Unos profesora", "Uspješan unos", "Profesor " + ime + " " + prezime + " uspješno dodan!");
+            try{
+                ProfesorRepository.spremi(new Profesor(sifra, ime, prezime, titula));
+                MessageBox.pokazi(Alert.AlertType.INFORMATION, "Unos profesora", "Uspješan unos", "Profesor " + ime + " " + prezime + " uspješno dodan!");
+            } catch (BazaPodatakaException e) {
+                MessageBox.pokazi(Alert.AlertType.ERROR, "Unos profesora", "Neuspješan unos", "Profesor " + ime + " " + prezime + " nije dodan u bazu!\n" + e.getCause().getMessage());
+            }
         }
     }
 }

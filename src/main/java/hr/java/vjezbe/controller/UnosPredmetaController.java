@@ -1,9 +1,12 @@
 package hr.java.vjezbe.controller;
 
+import hr.java.vjezbe.database.PredmetRepository;
+import hr.java.vjezbe.database.ProfesorRepository;
+import hr.java.vjezbe.database.StudentRepository;
 import hr.java.vjezbe.entitet.Predmet;
 import hr.java.vjezbe.entitet.Profesor;
 import hr.java.vjezbe.entitet.Student;
-import hr.java.vjezbe.util.Datoteke;
+import hr.java.vjezbe.iznimke.BazaPodatakaException;
 import hr.java.vjezbe.util.MessageBox;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -24,11 +27,13 @@ public class UnosPredmetaController {
     private ListView<Student> odabirStudenata;
 
     public void initialize(){
-        List<Profesor> profesori = Datoteke.ucitajProfesore();
-        List<Student> studenti = Datoteke.ucitajStudente();
+        try {
+            odabirStudenata.setItems(FXCollections.observableList(StudentRepository.dohvatiStudente()));
+            odabirNositeljaPredmeta.setItems(FXCollections.observableList(ProfesorRepository.dohvatiProfesore()));
+        } catch (BazaPodatakaException e) {
+            throw new RuntimeException(e);
+        }
 
-        odabirNositeljaPredmeta.setItems(FXCollections.observableList(profesori));
-        odabirStudenata.setItems(FXCollections.observableList(studenti));
         odabirStudenata.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
     public void spremiPredmet(){
@@ -50,14 +55,18 @@ public class UnosPredmetaController {
             MessageBox.pokazi(Alert.AlertType.ERROR, "Unos predmeta", "Nedostatak informacija", greska.toString());
         }
         else{
-            Predmet predmet = new Predmet(Datoteke.maxIdPredmeta().getAsLong() + 1, sifra, naziv, ects, nositelj);
+            Predmet predmet = new Predmet(sifra, naziv, ects, nositelj);
 
             if(studenti != null){
                 studenti.forEach(predmet::setStudent);
             }
 
-            Datoteke.unosPredmeta(predmet);
-            MessageBox.pokazi(Alert.AlertType.INFORMATION, "Unos predmeta", "Uspjeh", "Predmet je uspješno unesen!");
+            try{
+                PredmetRepository.spremi(predmet);
+                MessageBox.pokazi(Alert.AlertType.INFORMATION, "Unos predmeta", "Uspjeh", "Predmet je uspješno unesen!");
+            } catch (BazaPodatakaException e) {
+                MessageBox.pokazi(Alert.AlertType.ERROR, "Unos predmeta", "Neuspjeh", "Predmet nije uspješno unesen!");
+            }
         }
     }
 }
