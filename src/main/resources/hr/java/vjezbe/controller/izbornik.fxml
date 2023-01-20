@@ -28,6 +28,7 @@
             <items>
                 <MenuItem mnemonicParsing="false" onAction="#openPretragaIspitaView" text="Pretraga" />
                 <MenuItem mnemonicParsing="false" onAction="#openUnosIspitaView" text="Unos" />
+                <MenuItem mnemonicParsing="false" onAction="#openIzmjenaIspitaView" text="Izmjena" />
             </items>
         </Menu>
     </menus>

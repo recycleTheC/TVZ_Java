@@ -40,7 +40,7 @@
         <Label text="Prezime, ime studenta" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
         <Label text="Naziv predmeta" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
         <Label text="Datum ispita" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
-        <Button mnemonicParsing="false" onAction="#dohvatiIspite" text="Dohvati ispite" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+        <Button mnemonicParsing="false" onAction="#dohvatiIspite" text="Dohvati ispite" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
         <Label alignment="CENTER" text="Ocjena" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
         <TextField fx:id="nazivPredmetaField" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <GridPane.margin>
@@ -92,5 +92,6 @@
             <Insets left="5.0" right="5.0" />
          </GridPane.margin>
       </DatePicker>
+      <Button mnemonicParsing="false" onAction="#obrisiIspit" text="Obriši ispit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
     </children>
 </GridPane>

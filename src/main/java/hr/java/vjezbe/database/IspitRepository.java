@@ -92,8 +92,33 @@ public class IspitRepository {
             insert.executeUpdate();
         } catch (SQLException | IOException ex) {
             String poruka = "Došlo je do pogreške u radu s bazom podataka";
-            //logger.error(poruka, ex);
             throw new BazaPodatakaException(poruka, ex);
+        }
+    }
+    public static void obrisi(Long id) throws BazaPodatakaException {
+        try (Connection db = Database.connectToDatabase()) {
+            PreparedStatement delete = db.prepareStatement("DELETE FROM ISPIT WHERE ID = ?");
+
+            delete.setLong(1, id);
+            delete.executeUpdate();
+        } catch (SQLException | IOException ex) {
+            throw new BazaPodatakaException("Došlo je do pogreške u radu s bazom podataka", ex);
+        }
+    }
+
+    public static void izmjeni(Ispit ispit) throws BazaPodatakaException {
+        try (Connection db = Database.connectToDatabase()) {
+            PreparedStatement update = db.prepareStatement("UPDATE ISPIT SET PREDMET_ID = ?, STUDENT_ID = ?, OCJENA = ?, DATUM_I_VRIJEME = ? WHERE ID = ?");
+
+            update.setLong(1, ispit.getPredmet().getId());
+            update.setLong(2, ispit.getStudent().getId());
+            update.setInt(3, ispit.getOcjena().getBrojcanaOznaka());
+            update.setTimestamp(4, Timestamp.valueOf(ispit.getDatumIVrijeme()));
+            update.setLong(5, ispit.getId());
+
+            update.executeUpdate();
+        } catch (SQLException | IOException ex) {
+            throw new BazaPodatakaException("Došlo je do pogreške u radu s bazom podataka", ex);
         }
     }
 }

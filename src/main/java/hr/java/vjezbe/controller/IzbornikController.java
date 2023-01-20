@@ -71,4 +71,12 @@ public class IzbornikController {
         MainApplication.getMainStage().setScene(scene);
         MainApplication.getMainStage().show();
     }
+
+    public void openIzmjenaIspitaView() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(UnosIspitaController.class.getResource("izmjena-ispita-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        MainApplication.getMainStage().setTitle("Izmjena ispita - Programiranje u jeziku Java - (c) Mario Kopjar 2022.");
+        MainApplication.getMainStage().setScene(scene);
+        MainApplication.getMainStage().show();
+    }
 }

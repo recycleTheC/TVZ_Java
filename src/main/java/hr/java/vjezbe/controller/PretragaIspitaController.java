@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 public class PretragaIspitaController {
     @FXML
@@ -60,5 +61,23 @@ public class PretragaIspitaController {
         } catch (BazaPodatakaException ex) {
             MessageBox.pokazi(Alert.AlertType.ERROR, "Baza podataka", "Greška", ex.getMessage() + ": " + ex.getCause().getMessage());
         }
+    }
+
+    public void obrisiIspit(){
+        Ispit ispit = ispitTableView.getSelectionModel().getSelectedItem();
+
+        if(Optional.ofNullable(ispit).isPresent()){
+            try{
+                IspitRepository.obrisi(ispit.getId());
+                MessageBox.pokazi(Alert.AlertType.INFORMATION, "Ispiti", "Brisanje", "Ispit uspješno obrisan!");
+            } catch (BazaPodatakaException e) {
+                MessageBox.pokazi(Alert.AlertType.WARNING, "Brisanje ispita", "Greška pri radu s bazom podataka", "Nije moguće obrisati ispit!\n" + e.getCause().getMessage());
+            }
+        }
+        else {
+            MessageBox.pokazi(Alert.AlertType.WARNING, "Brisanje ispita", "Nije odabran ispit", "Odaberite ispit pa pokušajte ponovno!");
+        }
+
+        dohvatiIspite();
     }
 }
