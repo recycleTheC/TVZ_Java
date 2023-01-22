@@ -58,6 +58,32 @@ public class StudentRepository {
         return studenti;
     }
 
+public static List<Student> dohvatiStudenteZaRodjendan(LocalDate datum) throws BazaPodatakaException {
+    List<Student> studenti = new ArrayList<>();
+
+    try (Connection db = Database.connectToDatabase()){
+        PreparedStatement upit = db.prepareStatement("SELECT * FROM STUDENT WHERE DAY(DATUM_RODJENJA) = DAY(?) AND MONTH(DATUM_RODJENJA) = MONTH(?)");
+        upit.setDate(1, Date.valueOf(datum));
+        upit.setDate(2, Date.valueOf(datum));
+
+        ResultSet rezultat = upit.executeQuery();
+
+        while (rezultat.next()) {
+            Long id = rezultat.getLong("ID");
+            String ime = rezultat.getString("IME");
+            String prezime = rezultat.getString("PREZIME");
+            String jmbag = rezultat.getString("JMBAG");
+            LocalDate date = rezultat.getDate("DATUM_RODJENJA").toLocalDate();
+
+            studenti.add(new Student(id, ime, prezime, jmbag, date));
+        }
+    } catch (SQLException | IOException e) {
+        throw new BazaPodatakaException("Greška pri radu s bazom podataka!", e);
+    }
+
+    return studenti;
+}
+
     public static List<Student> dohvatiStudente(Student studentFilter) throws BazaPodatakaException {
         List<Student> studenti = new ArrayList<>();
 

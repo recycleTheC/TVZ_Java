@@ -2,6 +2,7 @@ package hr.java.vjezbe.entitet;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * Klasa Ispit saržava sve osnovne informacije o ispitima koji se polažu u obrazovnim ustanovama
@@ -30,7 +31,7 @@ public final class Ispit extends Entitet implements Online, Serializable {
         this.predmet = predmet;
         this.student = student;
         this.datumIVrijeme = datumIVrijeme;
-        this.setOcjena(ocjena);
+        if(Optional.ofNullable(ocjena).isPresent()) this.setOcjena(ocjena);
     }
 
     public Ispit(Long id, Predmet predmet, Student student, Ocjena ocjena, LocalDateTime datumIVrijeme) {
