@@ -7,8 +7,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -30,13 +28,11 @@ public class MainApplication extends Application {
 
     public static void main(String[] args) {
 
-        Timeline prikazSlavljenika = new Timeline(
-                new KeyFrame(Duration.seconds(10), event -> Platform.runLater(new DatumRodjenjaNit())));
+        Timeline prikazSlavljenika = new Timeline(new KeyFrame(Duration.seconds(10), event -> Platform.runLater(new DatumRodjenjaNit())));
         prikazSlavljenika.setCycleCount(Timeline.INDEFINITE);
         prikazSlavljenika.play();
 
-        Timeline prikazNajboljeg = new Timeline(
-                new KeyFrame(Duration.seconds(3), event -> Platform.runLater(new NajboljiStudentNit())));
+        Timeline prikazNajboljeg = new Timeline(new KeyFrame(Duration.seconds(3), event -> Platform.runLater(new NajboljiStudentNit())));
         prikazNajboljeg.setCycleCount(Timeline.INDEFINITE);
         prikazNajboljeg.play();
 
