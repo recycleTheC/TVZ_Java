@@ -4,7 +4,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 
-<MenuBar prefHeight="25.0" minWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.java.vjezbe.controller.IzbornikController">
+<MenuBar minWidth="600.0" prefHeight="25.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.java.vjezbe.controller.IzbornikController">
     <menus>
         <Menu mnemonicParsing="false" text="Profesori">
             <items>
@@ -30,5 +30,10 @@
                 <MenuItem mnemonicParsing="false" onAction="#openUnosIspitaView" text="Unos" />
             </items>
         </Menu>
+      <Menu mnemonicParsing="false" text="Radno vrijeme">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Postavi" onAction="#openRadnoVrijeme" />
+        </items>
+      </Menu>
     </menus>
 </MenuBar>

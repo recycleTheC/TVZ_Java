@@ -15,10 +15,12 @@ public class DatumRodjenjaNit implements Runnable {
         try {
             List<Student> studenti = StudentRepository.dohvatiStudenteZaRodjendan(LocalDate.now());
 
-            StringBuilder poruka = new StringBuilder("Čestitajte rođendan sljedećim studentima: \n");
-            studenti.forEach(student -> poruka.append(student.getImeIPrezime()).append("\n"));
+            if(studenti.size() > 0){
+                StringBuilder poruka = new StringBuilder("Čestitajte rođendan sljedećim studentima: \n");
+                studenti.forEach(student -> poruka.append(student.getImeIPrezime()).append("\n"));
+                MessageBox.pokazi(Alert.AlertType.INFORMATION, "Studenti", "Rođendan studenata", poruka.toString());
+            }
 
-            MessageBox.pokazi(Alert.AlertType.INFORMATION, "Studenti", "Rođendan studenata", poruka.toString());
         } catch (BazaPodatakaException e) {
             e.printStackTrace();
         }

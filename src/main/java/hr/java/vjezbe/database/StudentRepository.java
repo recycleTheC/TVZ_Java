@@ -35,6 +35,29 @@ public class StudentRepository {
 
         return student;
     }
+
+    public static Optional<Student> dohvatiNajstarijegStudenta() throws BazaPodatakaException {
+        Optional<Student> student = Optional.empty();
+
+        try (Connection db = Database.connectToDatabase()){
+            PreparedStatement upit = db.prepareStatement("SELECT * FROM STUDENT ORDER BY DATUM_RODJENJA LIMIT 1");
+            ResultSet rezultat = upit.executeQuery();
+
+            while (rezultat.next()) {
+                Long id = rezultat.getLong("ID");
+                String ime = rezultat.getString("IME");
+                String prezime = rezultat.getString("PREZIME");
+                String jmbag = rezultat.getString("JMBAG");
+                LocalDate date = rezultat.getDate("DATUM_RODJENJA").toLocalDate();
+
+                student = Optional.of(new Student(id, ime, prezime, jmbag, date));
+            }
+        } catch (SQLException | IOException e) {
+            throw new BazaPodatakaException("Greška pri radu s bazom podataka!", e);
+        }
+
+        return student;
+    }
     public static List<Student> dohvatiStudente() throws BazaPodatakaException {
         List<Student> studenti = new ArrayList<>();
 
